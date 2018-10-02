@@ -1,6 +1,4 @@
-class Mutations::RenameList < GraphQL::Function
-  description 'Changes list title'
-
+class Resolvers::RenameList < GraphQL::Function
   argument :listId,
     !types.Int,
     description: 'The id of the list to rename',
