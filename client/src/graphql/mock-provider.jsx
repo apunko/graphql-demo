@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { MockedProvider } from 'react-apollo/test-utils';
-import { GET_TODO_LIST } from '../queries';
+import { GET_TODO_LIST, GET_ALL_TODO_LISTS } from '../queries';
 
 const mocks = [
   {
@@ -17,6 +17,25 @@ const mocks = [
           title: 'First todo',
           items: [],
         },
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_ALL_TODO_LISTS,
+    },
+    result: {
+      data: {
+        allTodoLists: [
+          {
+            id: 1,
+            title: 'First todo',
+          },
+          {
+            id: 2,
+            title: 'Second todo',
+          },
+        ],
       },
     },
   },
