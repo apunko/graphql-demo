@@ -1,15 +1,14 @@
 import React from 'react';
-import { ApolloProvider } from 'react-apollo';
-import client from '../graphql/client';
-import TodoList from '../components/todo-list';
+import { Provider } from '../graphql';
+import TodoListCatalog from '../components/todo-list-catalog';
 
 const App = () => (
-  <ApolloProvider client={client}>
+  <Provider>
     <div>
       <h2>My first Apollo app</h2>
-      <TodoList title="Test list" items={[{ id: 1, title: 'Test item' }]} />
+      <TodoListCatalog />
     </div>
-  </ApolloProvider>
+  </Provider>
 );
 
 export default App;
