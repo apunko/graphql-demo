@@ -13,7 +13,8 @@
     "object-curly-newline": "off",
     "react/no-array-index-key": "off",
     "newline-before-return": 2,
-    "max-len": ["error", { "code": 120 }]
+    "max-len": ["error", { "code": 120 }],
+    "react/jsx-one-expression-per-line": "off"
   },
   "env": {
     "browser": true

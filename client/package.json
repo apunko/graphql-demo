@@ -5,9 +5,9 @@
   "description": "GraphQL Demo",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --mode development",
     "build": "webpack --mode production",
-    "lint": "eslint --ext js --ext jsx ."
+    "lint": "eslint --ext js --ext jsx src"
   },
   "husky": {
     "hooks": {
