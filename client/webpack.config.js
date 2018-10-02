@@ -1,7 +1,7 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.jsx',
+  entry: './src/index.jsx',
   module: {
     rules: [
       {
@@ -26,10 +26,15 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: "javascript/auto",
+      },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: [".webpack.js", ".web.js", ".mjs", ".js", ".jsx",".json"],
   },
   plugins: [
     new HtmlWebPackPlugin({

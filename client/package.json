@@ -18,8 +18,11 @@
   "keywords": [],
   "author": "Anton Punko <ant.punko@gmail.com>",
   "dependencies": {
+    "apollo-boost": "^0.1.16",
+    "graphql": "^14.0.2",
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
+    "react-apollo": "^2.2.4",
     "react-dom": "^16.4.2"
   },
   "devDependencies": {
