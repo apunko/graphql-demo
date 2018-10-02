@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings"
+  ],
+  "plugins": ["react", "jsx-a11y", "import"],
+  "rules": {
+    "react/destructuring-assignment": [0],
+    "import/prefer-default-export": "off",
+    "object-curly-newline": "off",
+    "react/no-array-index-key": "off",
+    "newline-before-return": 2,
+    "max-len": ["error", { "code": 120 }],
+    "react/jsx-one-expression-per-line": "off"
+  },
+  "env": {
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  }
+}
