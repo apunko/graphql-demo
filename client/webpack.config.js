@@ -28,13 +28,13 @@ module.exports = {
       },
       {
         test: /\.mjs$/,
-        include: /node_modules/,
+        include: /node_modules\/graphql/,
         type: "javascript/auto",
       },
     ],
   },
   resolve: {
-    extensions: [".webpack.js", ".web.js", ".mjs", ".js", ".jsx",".json"],
+    extensions: [".mjs", ".js", ".jsx"],
   },
   plugins: [
     new HtmlWebPackPlugin({
