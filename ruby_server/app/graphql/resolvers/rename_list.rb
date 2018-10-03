@@ -17,7 +17,7 @@ class Resolvers::RenameList < GraphQL::Function
     if list.save
       list
     else
-      raise StandardError.new('Unsuccessful save')
+      GraphQL::ExecutionError.new("Unsuccessful update")
     end
   end
 end
