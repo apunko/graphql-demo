@@ -1,11 +1,11 @@
 Types::Query = GraphQL::ObjectType.define do
   name 'Query'
 
-  field :list,
+  field :todoList,
     description: 'Return list by id',
     function: Resolvers::List.new
 
-  field :lists,
+  field :todoLists,
     description: 'Return all lists',
     function: Resolvers::Lists.new
 end

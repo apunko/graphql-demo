@@ -1,8 +1,7 @@
 class Resolvers::RenameList < GraphQL::Function
-  argument :listId,
+  argument :id,
     !types.Int,
-    description: 'The id of the list to rename',
-    as: :list_id
+    description: 'The id of the list to rename'
 
   argument :title,
     !types.String,
@@ -11,7 +10,7 @@ class Resolvers::RenameList < GraphQL::Function
   type Types::List
 
   def call(_, args, _)
-    list = List.find(args.list_id)
+    list = List.find(args.id)
     list.title = args.title
 
     if list.save

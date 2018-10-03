@@ -3,7 +3,7 @@ Types::List = GraphQL::ObjectType.define do
 
   field :id, types.Int
   field :title, types.String
-  field :updated_at, Types::DateTime
-  field :created_at, Types::DateTime
-  field :items, types[Types::Item]
+  field :updatedAt, Types::DateTime, property: :updated_at
+  field :createdAt, Types::DateTime, property: :created_at
+  field :todoItems, types[Types::Item], property: :items
 end

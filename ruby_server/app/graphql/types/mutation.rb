@@ -1,27 +1,27 @@
 Types::Mutation = GraphQL::ObjectType.define do
   name 'Mutation'
 
-  field :createList,
+  field :createTodoList,
     description: 'Create todo list',
     function: Resolvers::CreateList.new
 
-  field :renameList,
+  field :renameTodoList,
     description: 'Rename existing list',
     function: Resolvers::RenameList.new
 
-  field :destroyList,
+  field :destroyTodoList,
     description: 'Destroy existing list',
     function: Resolvers::DestroyList.new
 
-  field :createItem,
+  field :createTodoItem,
     description: 'Create todo item',
     function: Resolvers::CreateItem.new
 
-  field :updateItem,
+  field :updateTodoItem,
     description: 'Update existing todo item',
     function: Resolvers::UpdateItem.new
 
-  field :destroyItem,
+  field :destroyTodoItem,
     description: 'Destroy existing item',
     function: Resolvers::DestroyItem.new
 end

@@ -1,8 +1,7 @@
 class Resolvers::CreateItem < GraphQL::Function
-  argument :listId,
+  argument :id,
     !types.Int,
-    description: 'The id of the list',
-    as: :list_id
+    description: 'The id of the list'
 
   argument :title,
     !types.String
@@ -16,7 +15,7 @@ class Resolvers::CreateItem < GraphQL::Function
     item = Item.new(
       title: args.title,
       description: args.description,
-      list: ::List.find(args.list_id)
+      list: ::List.find(args.id)
     )
 
     if item.save

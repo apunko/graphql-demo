@@ -1,13 +1,12 @@
 class Resolvers::DestroyItem < GraphQL::Function
-  argument :itemId,
+  argument :id,
     !types.Int,
-    description: 'The id of the item to destroy',
-    as: :item_id
+    description: 'The id of the item to destroy'
 
   type Types::List
 
   def call(_, args, _)
-    item = Item.find(args.item_id)
+    item = Item.find(args.id)
 
     if item.destroy
       ::List.find(item.list_id)

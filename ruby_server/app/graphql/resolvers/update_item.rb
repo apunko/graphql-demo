@@ -1,8 +1,7 @@
 class Resolvers::UpdateItem < GraphQL::Function
-  argument :itemId,
+  argument :id,
     !types.Int,
-    description: 'The id of the item to update',
-    as: :item_id
+    description: 'The id of the item to update'
 
   argument :title,
     types.String,
@@ -15,7 +14,7 @@ class Resolvers::UpdateItem < GraphQL::Function
   type Types::Item
 
   def call(_, args, _)
-    item = Item.find(args.item_id)
+    item = Item.find(args.id)
 
     item.title = args.title if args.title
     item.description = args.description if args.description
