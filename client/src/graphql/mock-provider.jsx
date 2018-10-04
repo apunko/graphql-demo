@@ -24,13 +24,13 @@ const mocks = [
     request: {
       query: GET_TODO_LIST,
       variables: {
-        id: 1,
+        id: 2,
       },
     },
     result: {
       data: {
         todoList: {
-          title: 'First todo',
+          title: 'Second todo',
           items: [],
         },
       },
