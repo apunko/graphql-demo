@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Mutation } from 'react-apollo';
 import { CREATE_TODO_ITEM } from '../../mutations';
+import { GET_TODO_LIST } from '../../queries';
 
 class TodoItemForm extends React.Component {
   constructor(props) {
@@ -17,12 +18,23 @@ class TodoItemForm extends React.Component {
   }
 
   render() {
+    const { listId } = this.props;
+
     return (
-      <Mutation mutation={CREATE_TODO_ITEM}>
+      <Mutation
+        mutation={CREATE_TODO_ITEM}
+        update={(cache, { data: { createTodoItem } }) => {
+          const { todoList } = cache.readQuery({ query: GET_TODO_LIST, variables: { id: listId } });
+          cache.writeQuery({
+            query: GET_TODO_LIST,
+            data: { todoList: { ...todoList, todoItems: todoList.todoItems.concat([createTodoItem]) } },
+          });
+        }}
+      >
         {createTodoItem => (
           <form onSubmit={(e) => {
             e.preventDefault();
-            createTodoItem({ variables: { id: this.props.listId, title: this.state.title } });
+            createTodoItem({ variables: { id: listId, title: this.state.title } });
             this.setState({ title: '' });
           }}
           >
