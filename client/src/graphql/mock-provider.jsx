@@ -14,8 +14,9 @@ const mocks = [
     result: {
       data: {
         todoList: {
+          id: 1,
           title: 'First todo',
-          items: [],
+          items: [{ title: 'item', id: 123 }, { title: 'item2', id: 124 }],
         },
       },
     },
@@ -30,6 +31,7 @@ const mocks = [
     result: {
       data: {
         todoList: {
+          id: 2,
           title: 'Second todo',
           items: [],
         },

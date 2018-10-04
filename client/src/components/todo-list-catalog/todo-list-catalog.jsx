@@ -25,7 +25,7 @@ class TodoListCatalog extends React.Component {
           if (loading) return null;
           if (error) return `Error!: ${error}`;
 
-          const todoLists = data.allTodoLists;
+          const { todoLists } = data;
           const todoListPreviews = todoLists.map(list => (
             <TodoListPreview
               key={list.id}

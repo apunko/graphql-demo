@@ -11,14 +11,14 @@ const TodoList = ({ id }) => (
       if (loading) return null;
       if (error) return `Error!: ${error}`;
 
-      const { title, items } = data.todoList;
-      const todoItems = items.map(item => <TodoItem key={item.id} title={item.title} />);
+      const { title, todoItems } = data.todoList;
+      const items = todoItems.map(item => <TodoItem key={item.id} title={item.title} />);
 
       return (
         <div>
           <h1>{title}</h1>
           <TodoItemForm handleItemAdd={() => {}} />
-          {todoItems}
+          {items}
         </div>
       );
     }}
