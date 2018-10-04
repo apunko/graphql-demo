@@ -1,5 +1,6 @@
-import MockProvider from './mock-provider';
+// import MockProvider from './mock-provider';
+import Provider from './provider';
 
 export {
-  MockProvider as Provider,
+  Provider,
 };

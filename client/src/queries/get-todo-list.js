@@ -1,10 +1,12 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query todoList($id: number!) {
+  query todoList($id: Int!) {
     todoList(id: $id) {
+      id
       title
-      items {
+      todoItems {
+        id
         title
       }
     }

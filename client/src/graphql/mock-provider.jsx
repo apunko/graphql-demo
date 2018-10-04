@@ -14,7 +14,25 @@ const mocks = [
     result: {
       data: {
         todoList: {
+          id: 1,
           title: 'First todo',
+          items: [{ title: 'item', id: 123 }, { title: 'item2', id: 124 }],
+        },
+      },
+    },
+  },
+  {
+    request: {
+      query: GET_TODO_LIST,
+      variables: {
+        id: 2,
+      },
+    },
+    result: {
+      data: {
+        todoList: {
+          id: 2,
+          title: 'Second todo',
           items: [],
         },
       },
