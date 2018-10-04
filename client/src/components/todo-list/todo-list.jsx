@@ -17,7 +17,7 @@ const TodoList = ({ id }) => (
       return (
         <div>
           <h1>{title}</h1>
-          <TodoItemForm handleItemAdd={() => {}} />
+          <TodoItemForm listId={id} />
           {items}
         </div>
       );

@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Mutation } from 'react-apollo';
+import { CREATE_TODO_ITEM } from '../../mutations';
 
 class TodoItemForm extends React.Component {
   constructor(props) {
@@ -8,32 +10,33 @@ class TodoItemForm extends React.Component {
     this.state = { title: '' };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
     this.setState({ title: event.target.value });
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-
-    this.props.handleItemAdd({ ...this.state });
-    this.setState({ title: '' });
-  }
-
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
-        <input type="submit" value="Add" />
-      </form>
+      <Mutation mutation={CREATE_TODO_ITEM}>
+        {createTodoItem => (
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            createTodoItem({ variables: { id: this.props.listId, title: this.state.title } });
+            this.setState({ title: '' });
+          }}
+          >
+            <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
+            <input type="submit" value="Add" />
+          </form>
+        )}
+      </Mutation>
     );
   }
 }
 
 TodoItemForm.propTypes = {
-  handleItemAdd: PropTypes.func.isRequired,
+  listId: PropTypes.number.isRequired,
 };
 
 export default TodoItemForm;
