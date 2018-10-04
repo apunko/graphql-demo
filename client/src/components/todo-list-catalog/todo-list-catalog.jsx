@@ -1,6 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import TodoListPreview from '../todo-list-preview';
+import TodoList from '../todo-list';
 import { GET_ALL_TODO_LISTS } from '../../queries';
 
 const TodoListCatalog = () => (
@@ -15,6 +16,7 @@ const TodoListCatalog = () => (
       return (
         <div>
           <h1>All todo lists</h1>
+          <TodoList id={todoListPreviews[0].props.id} />
           {todoListPreviews}
         </div>
       );

@@ -22,6 +22,22 @@ const mocks = [
   },
   {
     request: {
+      query: GET_TODO_LIST,
+      variables: {
+        id: 1,
+      },
+    },
+    result: {
+      data: {
+        todoList: {
+          title: 'First todo',
+          items: [],
+        },
+      },
+    },
+  },
+  {
+    request: {
       query: GET_ALL_TODO_LISTS,
     },
     result: {

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import TodoItem from '../todo-item';
+import TodoItemForm from '../todo-item-form';
 import { GET_TODO_LIST } from '../../queries';
 
 const TodoList = ({ id }) => (
@@ -16,6 +17,7 @@ const TodoList = ({ id }) => (
       return (
         <div>
           <h1>{title}</h1>
+          <TodoItemForm handleItemAdd={() => {}} />
           {todoItems}
         </div>
       );
