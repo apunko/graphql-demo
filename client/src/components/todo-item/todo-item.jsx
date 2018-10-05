@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TodoItem = ({ title }) => (
-  <div>
-    <h2>{title}</h2>
-  </div>
+  <li>
+    {title}
+    <button type="button" className="remove">×</button>
+  </li>
 );
 
 TodoItem.propTypes = {

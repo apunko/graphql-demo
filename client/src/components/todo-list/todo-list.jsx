@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import TodoItem from '../todo-item';
 import TodoItemForm from '../todo-item-form';
 import { GET_TODO_LIST } from '../../queries';
+import './todo-list.css';
 
 const TodoList = ({ id }) => (
   <Query query={GET_TODO_LIST} variables={{ id }}>
@@ -18,7 +19,9 @@ const TodoList = ({ id }) => (
         <div>
           <h1>{title}</h1>
           <TodoItemForm listId={id} />
-          {items}
+          <ul>
+            {items}
+          </ul>
         </div>
       );
     }}
