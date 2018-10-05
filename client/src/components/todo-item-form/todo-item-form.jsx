@@ -38,7 +38,7 @@ class TodoItemForm extends React.Component {
             this.setState({ title: '' });
           }}
           >
-            <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
+            <input name="title" required type="text" value={this.state.title} onChange={this.handleChange} />
             <input type="submit" value="Add" />
           </form>
         )}

@@ -17,7 +17,9 @@ const TodoList = ({ id }) => (
 
       return (
         <div>
-          <h1>{title}</h1>
+          <div className="todo-title">
+            <h1>{title}</h1>
+          </div>
           <TodoItemForm listId={id} />
           <ul>
             {items}
