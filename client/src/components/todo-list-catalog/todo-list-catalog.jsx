@@ -1,8 +1,11 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import PropTypes from 'prop-types';
+import { Query, withApollo } from 'react-apollo';
 import TodoListPreview from '../todo-list-preview';
 import TodoList from '../todo-list';
+import TodoListForm from '../todo-list-form';
 import { GET_ALL_TODO_LISTS } from '../../queries';
+import { CREATE_TODO_LIST } from '../../mutations';
 import './todo-list-catalog.css';
 
 class TodoListCatalog extends React.Component {
@@ -12,10 +15,27 @@ class TodoListCatalog extends React.Component {
     this.state = { selectedId: null };
 
     this.handlePreviewSelect = this.handlePreviewSelect.bind(this);
+    this.createTodoList = this.createTodoList.bind(this);
   }
 
   handlePreviewSelect(selectedId) {
     this.setState({ selectedId });
+  }
+
+  createTodoList(title) {
+    this.props.client.mutate({
+      mutation: CREATE_TODO_LIST,
+      variables: { title },
+      update: (cache, { data: { createTodoList } }) => {
+        const { todoLists } = cache.readQuery({ query: GET_ALL_TODO_LISTS });
+        cache.writeQuery({
+          query: GET_ALL_TODO_LISTS,
+          data: { todoLists: todoLists.concat([createTodoList]) },
+        });
+      },
+    }).then(({ data: { createTodoList: { id } } }) => {
+      this.setState({ selectedId: id });
+    });
   }
 
   render() {
@@ -38,6 +58,7 @@ class TodoListCatalog extends React.Component {
 
           return (
             <div className="catalog">
+              <TodoListForm createTodoList={this.createTodoList} />
               <TodoList id={selectedId} />
               <div className="previews">
                 {todoListPreviews}
@@ -50,4 +71,10 @@ class TodoListCatalog extends React.Component {
   }
 }
 
-export default TodoListCatalog;
+TodoListCatalog.propTypes = {
+  client: PropTypes.shape({
+    mutate: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
+export default withApollo(TodoListCatalog);

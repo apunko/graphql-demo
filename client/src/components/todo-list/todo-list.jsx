@@ -4,6 +4,7 @@ import { Query } from 'react-apollo';
 import TodoItem from '../todo-item';
 import TodoItemForm from '../todo-item-form';
 import { GET_TODO_LIST } from '../../queries';
+import './todo-list.css';
 
 const TodoList = ({ id }) => (
   <Query query={GET_TODO_LIST} variables={{ id }}>
@@ -12,13 +13,17 @@ const TodoList = ({ id }) => (
       if (error) return `Error!: ${error}`;
 
       const { title, todoItems } = data.todoList;
-      const items = todoItems.map(item => <TodoItem key={item.id} title={item.title} />);
+      const items = todoItems.map(item => <TodoItem key={item.id} title={item.title} id={item.id} listId={id} />);
 
       return (
         <div>
-          <h1>{title}</h1>
-          <TodoItemForm handleItemAdd={() => {}} />
-          {items}
+          <div className="todo-title">
+            <h1>{title}</h1>
+          </div>
+          <TodoItemForm listId={id} />
+          <ul>
+            {items}
+          </ul>
         </div>
       );
     }}
