@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Resolvers
   class TodoResolver < BaseResolver
     def resolve(args)

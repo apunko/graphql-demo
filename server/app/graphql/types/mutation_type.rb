@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'todo_list_type'
 require_relative 'todo_item_type'
 
