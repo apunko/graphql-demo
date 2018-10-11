@@ -9,7 +9,7 @@ module Types
     field :allTodos, [Types::TodoListType], null: false, resolver: Resolvers::AllTodosResolver
 
     field :todo, Types::TodoListType, null: false, resolver: Resolvers::TodoResolver do
-      argument :id, ID, required: true
+      argument :id, Int, required: true
     end
   end
 end

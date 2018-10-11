@@ -12,25 +12,25 @@ module Types
     end
 
     field :createTodoItem, Types::TodoItemType, null: false, resolver: Resolvers::CreateTodoItemResolver do
-      argument :todo_id, ID, required: true
+      argument :todo_id, Int, required: true
       argument :title, String, required: true
     end
 
     field :destroyTodo, Types::TodoListType, null: false, resolver: Resolvers::DestroyTodoResolver do
-      argument :id, ID, required: true
+      argument :id, Int, required: true
     end
 
     field :destroyTodoItem, Types::TodoItemType, null: false, resolver: Resolvers::DestroyTodoItemResolver do
-      argument :id, ID, required: true
+      argument :id, Int, required: true
     end
 
     field :updateTodo, Types::TodoListType, null: false, resolver: Resolvers::UpdateTodoResolver do
-      argument :id, ID, required: true
+      argument :id, Int, required: true
       argument :title, String, required: true
     end
 
     field :updateTodoItem, Types::TodoItemType, null: false, resolver: Resolvers::UpdateTodoItemResolver do
-      argument :id, ID, required: true
+      argument :id, Int, required: true
       argument :title, String, required: true
     end
   end

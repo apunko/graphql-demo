@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  mutation createTodoItem($id: Int!, $title: String!){
-    createTodoItem(id: $id, title: $title) {
+  mutation createTodoItem($todoId: Int!, $title: String!){
+    createTodoItem(todoId: $todoId, title: $title) {
       id
       title
     }

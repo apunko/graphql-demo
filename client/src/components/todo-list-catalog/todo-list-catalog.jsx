@@ -26,14 +26,14 @@ class TodoListCatalog extends React.Component {
     this.props.client.mutate({
       mutation: CREATE_TODO_LIST,
       variables: { title },
-      update: (cache, { data: { createTodoList } }) => {
-        const { todoLists } = cache.readQuery({ query: GET_ALL_TODO_LISTS });
+      update: (cache, { data: { createTodo } }) => {
+        const { allTodos } = cache.readQuery({ query: GET_ALL_TODO_LISTS });
         cache.writeQuery({
           query: GET_ALL_TODO_LISTS,
-          data: { todoLists: todoLists.concat([createTodoList]) },
+          data: { allTodos: allTodos.concat([createTodo]) },
         });
       },
-    }).then(({ data: { createTodoList: { id } } }) => {
+    }).then(({ data: { createTodo: { id } } }) => {
       this.setState({ selectedId: id });
     });
   }
@@ -45,8 +45,8 @@ class TodoListCatalog extends React.Component {
           if (loading) return null;
           if (error) return `Error!: ${error}`;
 
-          const { todoLists } = data;
-          const todoListPreviews = todoLists.map(list => (
+          const { allTodos } = data;
+          const todoListPreviews = allTodos.map(list => (
             <TodoListPreview
               key={list.id}
               id={list.id}
@@ -54,7 +54,7 @@ class TodoListCatalog extends React.Component {
               title={list.title}
             />
           ));
-          const selectedId = this.state.selectedId || todoLists[0].id;
+          const selectedId = this.state.selectedId || allTodos[0].id;
 
           return (
             <div className="catalog">

@@ -12,7 +12,7 @@ const TodoList = ({ id }) => (
       if (loading) return null;
       if (error) return `Error!: ${error}`;
 
-      const { title, todoItems } = data.todoList;
+      const { title, todoItems } = data.todo;
       const items = todoItems.map(item => <TodoItem key={item.id} title={item.title} id={item.id} listId={id} />);
 
       return (
