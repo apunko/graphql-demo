@@ -24,7 +24,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.2",
     "react-apollo": "^2.2.4",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-inline-edition": "^1.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

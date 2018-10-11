@@ -4,8 +4,8 @@ import { Query, withApollo } from 'react-apollo';
 import TodoListPreview from '../todo-list-preview';
 import TodoList from '../todo-list';
 import TodoListForm from '../todo-list-form';
-import { GET_ALL_TODO_LISTS } from '../../queries';
-import { CREATE_TODO_LIST } from '../../mutations';
+import { GET_ALL_TODO_LISTS, GET_TODO_LIST } from '../../queries';
+import { CREATE_TODO_LIST, UPDATE_TODO_LIST, UPDATE_TODO_ITEM } from '../../mutations';
 import './todo-list-catalog.css';
 
 class TodoListCatalog extends React.Component {
@@ -16,10 +16,43 @@ class TodoListCatalog extends React.Component {
 
     this.handlePreviewSelect = this.handlePreviewSelect.bind(this);
     this.createTodoList = this.createTodoList.bind(this);
+    this.updateTitle = this.updateTitle.bind(this);
+    this.updateItemTitle = this.updateItemTitle.bind(this);
   }
 
   handlePreviewSelect(selectedId) {
     this.setState({ selectedId });
+  }
+
+  updateTitle(id, title) {
+    this.props.client.mutate({
+      mutation: UPDATE_TODO_LIST,
+      variables: { id, title },
+      update: (cache, { data: { updateTodo } }) => {
+        const { allTodos } = cache.readQuery({ query: GET_ALL_TODO_LISTS });
+        cache.writeQuery({
+          query: GET_ALL_TODO_LISTS,
+          data: { allTodos: allTodos.map(todo => (todo.id === updateTodo.id ? updateTodo : todo)) },
+        });
+      },
+    });
+  }
+
+  updateItemTitle(id, title, listId) {
+    this.props.client.mutate({
+      mutation: UPDATE_TODO_ITEM,
+      variables: { id, title },
+      update: (cache, { data: { updateTodoItem } }) => {
+        const { todo } = cache.readQuery({ query: GET_TODO_LIST, variables: { id: listId } });
+        cache.writeQuery({
+          query: GET_TODO_LIST,
+          data: { todo: {
+            ...todo,
+            todoItems: todo.todoItems.map(item => (item.id === updateTodoItem.id ? updateTodoItem : item)),
+          } },
+        });
+      },
+    });
   }
 
   createTodoList(title) {
@@ -59,7 +92,7 @@ class TodoListCatalog extends React.Component {
           return (
             <div className="catalog">
               <TodoListForm createTodoList={this.createTodoList} />
-              <TodoList id={selectedId} />
+              <TodoList id={selectedId} updateTitle={this.updateTitle} updateItemTitle={this.updateItemTitle} />
               <div className="previews">
                 {todoListPreviews}
               </div>
