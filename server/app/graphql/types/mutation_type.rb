@@ -21,5 +21,15 @@ module Types
     field :destroyTodoItem, Types::TodoItemType, null: false, resolver: Resolvers::DestroyTodoItemResolver do
       argument :id, ID, required: true
     end
+
+    field :updateTodo, Types::TodoListType, null: false, resolver: Resolvers::UpdateTodoResolver do
+      argument :id, ID, required: true
+      argument :title, String, required: true
+    end
+
+    field :updateTodoItem, Types::TodoItemType, null: false, resolver: Resolvers::UpdateTodoItemResolver do
+      argument :id, ID, required: true
+      argument :title, String, required: true
+    end
   end
 end
