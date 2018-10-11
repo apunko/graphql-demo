@@ -1,9 +1,7 @@
 module Resolvers
   class TodoResolver < BaseResolver
-    type Types::TodoList, null: false
-
-    def resolve(id)
-      Todo.find_by(id)
+    def resolve(args)
+      Todo.find_by(args)
     end
   end
 end

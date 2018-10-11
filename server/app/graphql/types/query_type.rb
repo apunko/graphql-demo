@@ -4,8 +4,8 @@ module Types
   class QueryType < Types::BaseObject
     graphql_name 'Query'
 
-    field :allTodos, [Types::TodoList], null: false, resolver: Resolvers::AllTodosResolver
-    field :todo, Types::TodoList, null: false, resolver: Resolvers::TodoResolver do
+    field :allTodos, [Types::TodoListType], null: false, resolver: Resolvers::AllTodosResolver
+    field :todo, Types::TodoListType, null: false, resolver: Resolvers::TodoResolver do
       argument :id, ID, required: true
     end
   end
