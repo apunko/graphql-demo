@@ -15,6 +15,7 @@ AllCops:
   #   - 'app/**/*'
   #   - 'spec/**/*'
   Exclude: # why?
+    - 'bin/**/*'
     - 'db/**/*' # migrations shouldn't be checked. there should be no business logic there
     - 'db/schema.rb' # should not be maintained by us
   DisplayCopNames: true
@@ -36,6 +37,10 @@ Lint/UnneededCopEnableDirective:
 # Lint End
 
 #Metrics Start
+Metrics/LineLength:
+  Max: 120
+Metrics/MethodLength:
+  Max: 15
 Metrics/BlockLength:
   Enabled: true
   Max: 25
@@ -163,5 +168,7 @@ Style/StabbyLambdaParentheses:
 Style/TernaryParentheses:
   EnforcedStyle: require_no_parentheses
 Style/TrailingUnderscoreVariable:
+  Enabled: false
+Style/Documentation:
   Enabled: false
 # Style End
