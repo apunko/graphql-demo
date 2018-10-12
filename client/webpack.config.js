@@ -1,7 +1,8 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.jsx',
+  entry: './src/index.tsx',
+  devtool: 'source-map',
   module: {
     rules: [
       {
@@ -29,12 +30,25 @@ module.exports = {
       {
         test: /\.mjs$/,
         include: /node_modules\/graphql/,
-        type: "javascript/auto",
+        type: 'javascript/auto',
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'awesome-typescript-loader',
+      },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        loader: 'source-map-loader',
       },
     ],
   },
   resolve: {
-    extensions: [".mjs", ".js", ".jsx"],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
+  externals: {
+    React: 'React',
+    ReactDOM: 'ReactDOM',
   },
   plugins: [
     new HtmlWebPackPlugin({

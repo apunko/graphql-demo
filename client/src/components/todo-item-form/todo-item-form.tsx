@@ -1,20 +1,25 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Mutation } from 'react-apollo';
 import { CREATE_TODO_ITEM } from '../../mutations';
 import { GET_TODO_LIST } from '../../queries';
 
-class TodoItemForm extends React.Component {
-  constructor(props) {
+interface TodoItemFormProps {
+  listId: number,
+}
+
+interface TodoListFormState {
+  title: string,
+}
+
+class TodoItemForm extends React.Component<TodoItemFormProps, TodoListFormState> {
+  constructor(props: TodoItemFormProps) {
     super(props);
 
     this.state = { title: '' };
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ title: event.target.value });
+  handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    this.setState({ title: event.currentTarget.value });
   }
 
   render() {
@@ -46,9 +51,5 @@ class TodoItemForm extends React.Component {
     );
   }
 }
-
-TodoItemForm.propTypes = {
-  listId: PropTypes.number.isRequired,
-};
 
 export default TodoItemForm;

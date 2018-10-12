@@ -1,12 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Mutation } from 'react-apollo';
 import EditableLabel from 'react-inline-edition';
 import { DESTROY_TODO_ITEM } from '../../mutations';
 import { GET_TODO_LIST } from '../../queries';
 
-const TodoItem = ({ title, listId, id, updateTitle }) => {
-  const onFocusOut = text => (updateTitle(id, text, listId));
+interface TodoItemProps {
+  title: string,
+  listId: number,
+  id: number,
+  updateTitle(id: number, title: string, listId: number): void,
+}
+
+const TodoItem = ({ title, listId, id, updateTitle }: TodoItemProps) => {
+  const onFocusOut = (text: string) => (updateTitle(id, text, listId));
 
   return (
     <li>
@@ -36,13 +42,6 @@ const TodoItem = ({ title, listId, id, updateTitle }) => {
       </Mutation>
     </li>
   );
-};
-
-TodoItem.propTypes = {
-  listId: PropTypes.number.isRequired,
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  updateTitle: PropTypes.func.isRequired,
 };
 
 export default TodoItem;
