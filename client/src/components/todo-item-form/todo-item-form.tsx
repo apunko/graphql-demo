@@ -42,9 +42,7 @@ class TodoItemForm extends React.Component<TodoItemFormProps, TodoListFormState>
           };
 
           return (
-            <form
-              onSubmit={onSubmit}
-            >
+            <form onSubmit={onSubmit}>
               <input name='title' required={true} type='text' value={this.state.title} onChange={this.handleChange} />
               <input type='submit' value='Add' />
             </form>
