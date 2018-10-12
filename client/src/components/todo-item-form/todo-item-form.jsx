@@ -24,17 +24,17 @@ class TodoItemForm extends React.Component {
       <Mutation
         mutation={CREATE_TODO_ITEM}
         update={(cache, { data: { createTodoItem } }) => {
-          const { todoList } = cache.readQuery({ query: GET_TODO_LIST, variables: { id: listId } });
+          const { todo } = cache.readQuery({ query: GET_TODO_LIST, variables: { id: listId } });
           cache.writeQuery({
             query: GET_TODO_LIST,
-            data: { todoList: { ...todoList, todoItems: todoList.todoItems.concat([createTodoItem]) } },
+            data: { todo: { ...todo, todoItems: todo.todoItems.concat([createTodoItem]) } },
           });
         }}
       >
         {createTodoItem => (
           <form onSubmit={(e) => {
             e.preventDefault();
-            createTodoItem({ variables: { id: listId, title: this.state.title } });
+            createTodoItem({ variables: { todoId: listId, title: this.state.title } });
             this.setState({ title: '' });
           }}
           >

@@ -4840,12 +4840,20 @@ react-dom@^16.4.2:
     prop-types "^15.6.2"
     schedule "^0.5.0"
 
+react-inline-edition@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/react-inline-edition/-/react-inline-edition-1.4.2.tgz#0698165a8d5b3eb90f58f05d2834e176ea512471"
+  integrity sha512-vp54fgXGe/9KjbQ7YhnkUBuWoGCLehAm8v9NYmKo6v7o1qW/1X3bs6naEWrAdkmkbbQUL2yLIjcCldIS17w/rA==
+  dependencies:
+    prop-types "^15.6.0"
+    react "^16.2.0"
+
 react-is@^16.3.2:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.5.2.tgz#e2a7b7c3f5d48062eb769fcb123505eb928722e3"
   integrity sha512-hSl7E6l25GTjNEZATqZIuWOgSnpXb3kD0DVCujmg46K5zLxsbiKaaT6VO9slkSBDPZfYs30lwfJwbOFOnoEnKQ==
 
-react@^16.4.2:
+react@^16.2.0, react@^16.4.2:
   version "16.5.2"
   resolved "https://registry.yarnpkg.com/react/-/react-16.5.2.tgz#19f6b444ed139baa45609eee6dc3d318b3895d42"
   integrity sha512-FDCSVd3DjVTmbEAjUNX6FgfAmQ+ypJfHUsqUJOYNCBUp1h8lqmtC+0mXJ+JjsWx4KAVTkk1vKd1hLQPvEviSuw==
