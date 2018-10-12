@@ -7,9 +7,9 @@ import { GET_TODO_LIST } from '../../queries';
 import './todo-list.css';
 
 interface TodoListProps {
-  id: number,
-  updateTitle(id: number, title: string): void,
-  updateItemTitle(id: number, title: string, listId: number): void,
+  id: number;
+  updateTitle(id: number, title: string): void;
+  updateItemTitle(id: number, title: string, listId: number): void;
 }
 
 const TodoList = ({ id, updateTitle, updateItemTitle }: TodoListProps) => {
@@ -18,8 +18,8 @@ const TodoList = ({ id, updateTitle, updateItemTitle }: TodoListProps) => {
   return (
     <Query query={GET_TODO_LIST} variables={{ id }}>
       {({ loading, error, data }) => {
-        if (loading) return null;
-        if (error) return `Error!: ${error}`;
+        if (loading) { return null; }
+        if (error) { return `Error!: ${error}`; }
 
         const { title, todoItems } = data.todo;
         const items = todoItems.map((item: TTodoItem) => (
@@ -34,7 +34,7 @@ const TodoList = ({ id, updateTitle, updateItemTitle }: TodoListProps) => {
 
         return (
           <div>
-            <div className="todo-title">
+            <div className='todo-title'>
               <EditableLabel text={title} onFocusOut={onFocusOut} />
             </div>
             <TodoItemForm listId={id} />

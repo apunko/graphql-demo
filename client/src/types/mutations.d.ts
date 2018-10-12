@@ -1,17 +1,29 @@
 interface TUpdateTodoItemResult { 
   data: {
-    updateTodoItem: TTodoItem
+    updateTodoItem: TTodoItem;
   }
 }
 
 interface TUpdateTodoResult { 
   data: {
-    updateTodo: TTodoList,
+    updateTodo: TTodoList;
   }
 }
 
 interface TCreateTodoResult { 
   data: {
-    createTodo: TTodoList,
+    createTodo: TTodoList;
+  }
+}
+
+interface TCreateTodoItemResult { 
+  data: {
+    createTodoItem: TTodoItem;
+  }
+}
+
+interface TDestroyTodoItemResult { 
+  data: {
+    destroyTodoItem: TTodoList;
   }
 }
