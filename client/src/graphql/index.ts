@@ -2,5 +2,5 @@
 import Provider from './provider';
 
 export {
-  Provider,
+  Provider as GraphqlProvider,
 };
