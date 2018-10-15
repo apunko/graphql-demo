@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { Query } from 'react-apollo';
 import EditableLabel from 'react-inline-edition';
 import TodoItem from '../todo-item';
@@ -7,17 +6,23 @@ import TodoItemForm from '../todo-item-form';
 import { GET_TODO_LIST } from '../../queries';
 import './todo-list.css';
 
-const TodoList = ({ id, updateTitle, updateItemTitle }) => {
-  const onFocusOut = title => (updateTitle(id, title));
+interface TodoListProps {
+  id: number;
+  updateTitle(id: number, title: string): void;
+  updateItemTitle(id: number, title: string, listId: number): void;
+}
+
+const TodoList = ({ id, updateTitle, updateItemTitle }: TodoListProps) => {
+  const onFocusOut = (title: string) => (updateTitle(id, title));
 
   return (
     <Query query={GET_TODO_LIST} variables={{ id }}>
       {({ loading, error, data }) => {
-        if (loading) return null;
-        if (error) return `Error!: ${error}`;
+        if (loading) { return null; }
+        if (error) { return `Error!: ${error}`; }
 
         const { title, todoItems } = data.todo;
-        const items = todoItems.map(item => (
+        const items = todoItems.map((item: TTodoItem) => (
           <TodoItem
             key={item.id}
             title={item.title}
@@ -29,7 +34,7 @@ const TodoList = ({ id, updateTitle, updateItemTitle }) => {
 
         return (
           <div>
-            <div className="todo-title">
+            <div className='todo-title'>
               <EditableLabel text={title} onFocusOut={onFocusOut} />
             </div>
             <TodoItemForm listId={id} />
@@ -41,12 +46,6 @@ const TodoList = ({ id, updateTitle, updateItemTitle }) => {
       }}
     </Query>
   );
-};
-
-TodoList.propTypes = {
-  id: PropTypes.number.isRequired,
-  updateTitle: PropTypes.func.isRequired,
-  updateItemTitle: PropTypes.func.isRequired,
 };
 
 export default TodoList;

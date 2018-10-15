@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import { MockedProvider } from 'react-apollo/test-utils';
 import { GET_TODO_LIST, GET_ALL_TODO_LISTS } from '../queries';
 
@@ -59,14 +58,10 @@ const mocks = [
   },
 ];
 
-const MockProvider = ({ children }) => (
+const MockProvider = ({ children }: { children: React.ReactNode }) => (
   <MockedProvider mocks={mocks} addTypename={false}>
     {children}
   </MockedProvider>
 );
-
-MockProvider.propTypes = {
-  children: PropTypes.element.isRequired,
-};
 
 export default MockProvider;
