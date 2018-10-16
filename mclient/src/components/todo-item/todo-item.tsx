@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from 'react-native'
+import { Text } from 'react-native';
 
 interface TodoItemProps {
   title: string;
@@ -7,9 +7,7 @@ interface TodoItemProps {
 }
 
 const TodoItem = ({ title, id }: TodoItemProps) => (
-  <>
-    <Text>Item-{title}-{id}</Text> 
-  </>
+  <Text>Item-{title}-{id}</Text>
 );
 
 export default TodoItem;

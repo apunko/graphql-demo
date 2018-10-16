@@ -9,7 +9,7 @@ const App = createStackNavigator(
   },
   {
     initialRouteName: 'TodosPreview',
-  }
+  },
 );
 
 export default App;
