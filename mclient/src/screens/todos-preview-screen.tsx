@@ -1,9 +1,8 @@
 import React from 'react';
+import { NavigationScreenProps } from 'react-navigation';
 import TodoPreviewList from '../components/todo-preview-list';
-import TodoScreen from './todo-screen';
 
-
-class TodosPreviewScreen extends React.Component {
+class TodosPreviewScreen extends React.Component<NavigationScreenProps<any>> {
   static navigationOptions = {
     title: 'Your todos',
   };
@@ -11,7 +10,7 @@ class TodosPreviewScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <TodoPreviewList handleSelect={(id: number) => { navigate('Todo', { id }) }} />
+      <TodoPreviewList handleSelect={(id: number, title: string) => { navigate('Todo', { id }) }} />
     );
   }
 }

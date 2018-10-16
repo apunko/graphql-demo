@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
+    "ios": "react-native run-ios",
     "test": "jest"
   },
   "dependencies": {
     "@types/react-navigation": "^2.0.24",
     "apollo-boost": "^0.1.16",
+    "graphql": "^14.0.2",
     "react": "16.6.0-alpha.8af6728",
     "react-apollo": "^2.2.4",
     "react-native": "0.57.3",

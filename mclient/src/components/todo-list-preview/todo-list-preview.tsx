@@ -4,12 +4,12 @@ import { Button } from 'react-native';
 interface TodoListPreviewProps {
   id: number;
   title: string;
-  handleSelect(id: number): void;
+  handleSelect(id: number, title: string): void;
 }
 
 const TodoListPreview = ({ id, title, handleSelect }: TodoListPreviewProps) => {
   return (
-    <Button onPress={() => {handleSelect(id)}} title={`${id}-${title}`} />
+    <Button onPress={() => {handleSelect(id, title)}} title={`${id}-${title}`} />
   );
 };
 

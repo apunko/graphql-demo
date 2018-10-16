@@ -1,16 +1,17 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
+import TodoList from '../components/todo-list';
 
-class TodoScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Todo',
-  };
+class TodoScreen extends React.Component<NavigationScreenProps<any>> {
+  static navigationOptions = ({ navigation }: NavigationScreenProps<any>) => ({
+    title: navigation.state.params.title,
+  });
 
   render() {
-    const { id } = this.props.navigation.state.params;
+    const { id, title } = this.props.navigation.state.params;
 
     return (
-      <Text>Todo screen {id}</Text>
+      <TodoList id={id} title={title} />
     );
   }
 }

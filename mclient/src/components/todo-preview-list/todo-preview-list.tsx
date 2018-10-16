@@ -3,11 +3,11 @@ import { View } from 'react-native';
 import TodoListPreview from '../todo-list-preview';
 
 interface TodoPreviewListProps {
-  handleSelect(id: number): void;
+  handleSelect(id: number, title: string): void;
 }
 
 const TodoPreviewList = ({ handleSelect }: TodoPreviewListProps) => {
-  const todos = [{ id: 1, title: '123' }, { id: 2, title: '123' }, { id: 3, title: '0000' }];
+  const todos = [{ id: 3, title: '123' }, { id: 5, title: '123' }];
   const todoListPreviews = todos.map((list) => (
     <TodoListPreview
       key={list.id}
