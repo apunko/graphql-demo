@@ -9,7 +9,7 @@ interface TodoListPreviewProps {
 
 const TodoListPreview = ({ id, title, handleSelect }: TodoListPreviewProps) => {
   return (
-    <Button onPress={() => { handleSelect(id, title); }} title={`${id}-${title}`} />
+    <Button onPress={() => { handleSelect(id, title); }} title={title} />
   );
 };
 

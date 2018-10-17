@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { Query } from 'react-apollo';
 import { GET_TODO_LIST } from '../../queries';
 import TodoItem from '../todo-item';
@@ -30,8 +30,8 @@ const TodoList = ({ id, title }: TodoListProps) => {
           ));
 
           return (
-            <View>
-              <Text>
+            <View style={styles.container}>
+              <Text style={styles.title}>
                 {title}-{id}
               </Text>
               <TodoItemForm listId={id} updateCache={ApolloCacheService.onItemAdd.bind(null, { id })} />
@@ -45,5 +45,17 @@ const TodoList = ({ id, title }: TodoListProps) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    paddingTop: 40,
+  },
+  title: {
+    color: 'skyblue',
+    fontWeight: 'bold',
+    fontSize: 30,
+  },
+});
 
 export default TodoList;

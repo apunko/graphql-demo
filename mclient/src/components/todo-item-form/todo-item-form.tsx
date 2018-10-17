@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
-import { Button, TextInput } from 'react-native';
+import { Button, TextInput, StyleSheet } from 'react-native';
 import { CREATE_TODO_ITEM } from '../../mutations';
 
 interface TodoItemFormProps {
@@ -36,6 +36,7 @@ class TodoItemForm extends React.Component<TodoItemFormProps, TodoItemFormState>
         return (
           <>
             <TextInput
+              style={styles.titleInput}
               maxLength={20}
               value={this.state.title}
               placeholder='Enter item title'
@@ -49,5 +50,11 @@ class TodoItemForm extends React.Component<TodoItemFormProps, TodoItemFormState>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  titleInput: {
+    padding: 5,
+  },
+});
 
 export default TodoItemForm;

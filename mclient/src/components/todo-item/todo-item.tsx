@@ -1,8 +1,7 @@
 import React from 'react';
 import { Mutation } from 'react-apollo';
-import { Text, Button } from 'react-native';
+import { Text, Button, View, StyleSheet } from 'react-native';
 import DESTROY_TODO_ITEM from '../../mutations/destroy-todo-item';
-import { GET_TODO_LIST } from '../../queries';
 
 interface TodoItemProps {
   title: string;
@@ -12,8 +11,8 @@ interface TodoItemProps {
 
 const TodoItem = ({ title, id, updateCache }: TodoItemProps) => {
   return (
-    <>
-      <Text>Item-{title}-{id}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{title}</Text>
       <Mutation
         mutation={DESTROY_TODO_ITEM}
         update={updateCache}
@@ -22,8 +21,18 @@ const TodoItem = ({ title, id, updateCache }: TodoItemProps) => {
           <Button onPress={() => { destroyTodoItem({ variables: { id } }); }} title='Destroy' />
         )}
       </Mutation>
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+  },
+  title: {
+    fontSize: 18,
+    paddingTop: 8,
+  },
+});
 
 export default TodoItem;
