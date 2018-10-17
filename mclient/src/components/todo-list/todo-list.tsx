@@ -3,6 +3,8 @@ import { View, Text } from 'react-native';
 import { Query } from 'react-apollo';
 import { GET_TODO_LIST } from '../../queries';
 import TodoItem from '../todo-item';
+import TodoItemForm from '../todo-item-form';
+import ApolloCacheService from '../../services/apollo-cache-service';
 
 interface TodoListProps {
   id: number;
@@ -18,20 +20,12 @@ const TodoList = ({ id, title }: TodoListProps) => {
           if (error) { return <Text>Error!: ${error.toString()}</Text>; }
 
           const { todoItems } = data.todo;
-          const updateCache = (cache: any, { data: { destroyedTodoItem } }: any) => {
-            const { todo } = cache.readQuery({ query: GET_TODO_LIST, variables: { id } });
-            cache.writeQuery({
-              query: GET_TODO_LIST,
-              data: { todo: { ...todo,
-                todoItems: todo.todoItems.filter((item: any) => item.id !== destroyedTodoItem.id) } },
-            });
-          };
           const items = todoItems.map((item: any) => (
             <TodoItem
               key={item.id}
               title={item.title}
               id={item.id}
-              updateCache={updateCache}
+              updateCache={ApolloCacheService.onItemDestroy.bind(null, { id })}
             />
           ));
 
@@ -40,6 +34,7 @@ const TodoList = ({ id, title }: TodoListProps) => {
               <Text>
                 {title}-{id}
               </Text>
+              <TodoItemForm listId={id} updateCache={ApolloCacheService.onItemAdd.bind(null, { id })} />
               <View>
                 {items}
               </View>
