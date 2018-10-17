@@ -11,32 +11,43 @@ interface TodoListProps {
 
 const TodoList = ({ id, title }: TodoListProps) => {
   return (
-    <Query query={GET_TODO_LIST} variables={{ id }}>
-      {({ loading, error, data }) => {
-        if (loading) { return <Text>Loading...{title}-{id}</Text>; }
-        if (error) { return <Text>Error!: ${error.toString()}</Text>; }
+    <View>
+      <Query query={GET_TODO_LIST} variables={{ id }}>
+        {({ loading, error, data }) => {
+          if (loading) { return <Text>Loading...{title}-{id}</Text>; }
+          if (error) { return <Text>Error!: ${error.toString()}</Text>; }
 
-        const { todoItems } = data.todo;
-        const items = todoItems.map((item: any) => (
-          <TodoItem
-            key={item.id}
-            title={item.title}
-            id={item.id}
-          />
-        ));
+          const { todoItems } = data.todo;
+          const updateCache = (cache: any, { data: { destroyedTodoItem } }: any) => {
+            const { todo } = cache.readQuery({ query: GET_TODO_LIST, variables: { id } });
+            cache.writeQuery({
+              query: GET_TODO_LIST,
+              data: { todo: { ...todo,
+                todoItems: todo.todoItems.filter((item: any) => item.id !== destroyedTodoItem.id) } },
+            });
+          };
+          const items = todoItems.map((item: any) => (
+            <TodoItem
+              key={item.id}
+              title={item.title}
+              id={item.id}
+              updateCache={updateCache}
+            />
+          ));
 
-        return (
-          <>
-            <Text>
-              {title}-{id}
-            </Text>
+          return (
             <View>
-              {items}
+              <Text>
+                {title}-{id}
+              </Text>
+              <View>
+                {items}
+              </View>
             </View>
-          </>
-        );
-      }}
-    </Query>
+          );
+        }}
+      </Query>
+    </View>
   );
 };
 
