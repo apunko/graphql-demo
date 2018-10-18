@@ -1,11 +1,15 @@
 import * as React from 'react';
-import { Provider } from '../graphql';
+import { Provider } from 'react-redux';
+import store from '../store';
+import { GraphqlProvider } from '../graphql';
 import TodoListCatalog from '../components/todo-list-catalog';
 
 const App = () => (
-  <Provider>
-    <TodoListCatalog />
-  </Provider>
+  <GraphqlProvider>
+    <Provider store={store}>
+      <TodoListCatalog />
+    </Provider>
+  </GraphqlProvider>
 );
 
 export default App;

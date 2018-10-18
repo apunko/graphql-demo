@@ -2,64 +2,27 @@ import * as React from 'react';
 import { Query, withApollo } from 'react-apollo';
 import { InMemoryCache } from 'apollo-boost';
 import { WithApolloClient } from 'react-apollo/withApollo';
+import { connect } from 'react-redux';
 import TodoListPreview from '../todo-list-preview';
 import TodoList from '../todo-list';
 import TodoListForm from '../todo-list-form';
 import { GET_ALL_TODO_LISTS, GET_TODO_LIST } from '../../queries';
 import { CREATE_TODO_LIST, UPDATE_TODO_LIST, UPDATE_TODO_ITEM } from '../../mutations';
+import { SelectTodo } from '../../actions';
 import './todo-list-catalog.css';
 
-interface TodoListCatalogProps {} // tslint:disable-line
-
-interface TodoListCatalogState {
+interface TodoListCatalogProps {
   selectedId: number;
+  selectTodo(id: number): void;
 }
 
-class TodoListCatalog extends React.Component<WithApolloClient<TodoListCatalogProps>, TodoListCatalogState> {
-  constructor(props: WithApolloClient<TodoListCatalogProps>) {
-    super(props);
+const TodoListCatalog = ({ selectedId, selectTodo, client }: WithApolloClient<TodoListCatalogProps>) => {
+  const handlePreviewSelect = (id: number) => {
+    selectTodo(id);
+  };
 
-    this.state = { selectedId: null };
-  }
-
-  public render(): React.ReactNode  {
-    return (
-      <Query query={GET_ALL_TODO_LISTS}>
-        {({ loading, error, data }) => {
-          if (loading) { return null; }
-          if (error) { return `Error!: ${error}`; }
-
-          const { allTodos } = data;
-          const todoListPreviews = allTodos.map((list: TTodoList) => (
-            <TodoListPreview
-              key={list.id}
-              id={list.id}
-              handleClick={this.handlePreviewSelect}
-              title={list.title}
-            />
-          ));
-          const selectedId = this.state.selectedId || allTodos[0].id;
-
-          return (
-            <div className='catalog'>
-              <TodoListForm createTodoList={this.createTodoList} />
-              <TodoList id={selectedId} updateTitle={this.updateTitle} updateItemTitle={this.updateItemTitle} />
-              <div className='previews'>
-                {todoListPreviews}
-              </div>
-            </div>
-          );
-        }}
-      </Query>
-    );
-  }
-
-  private handlePreviewSelect = (selectedId: number) => {
-    this.setState({ selectedId });
-  }
-
-  private updateTitle = (id: number, title: string) => {
-    this.props.client.mutate({
+  const updateTitle = (id: number, title: string) => {
+    client.mutate({
       mutation: UPDATE_TODO_LIST,
       variables: { id, title },
       update: (cache: InMemoryCache, { data: { updateTodo } }: TUpdateTodoResult) => {
@@ -70,10 +33,10 @@ class TodoListCatalog extends React.Component<WithApolloClient<TodoListCatalogPr
         });
       },
     });
-  }
+  };
 
-  private updateItemTitle = (id: number, title: string, listId: number) => {
-    this.props.client.mutate({
+  const updateItemTitle = (id: number, title: string, listId: number) => {
+    client.mutate({
       mutation: UPDATE_TODO_ITEM,
       variables: { id, title },
       update: (cache: InMemoryCache, { data: { updateTodoItem } }: TUpdateTodoItemResult) => {
@@ -87,10 +50,10 @@ class TodoListCatalog extends React.Component<WithApolloClient<TodoListCatalogPr
         });
       },
     });
-  }
+  };
 
-  private createTodoList = (title: string) => {
-    this.props.client.mutate({
+  const createTodoList = (title: string) => {
+    client.mutate({
       mutation: CREATE_TODO_LIST,
       variables: { title },
       update: (cache: InMemoryCache, { data: { createTodo } }: TCreateTodoResult) => {
@@ -101,9 +64,48 @@ class TodoListCatalog extends React.Component<WithApolloClient<TodoListCatalogPr
         });
       },
     }).then(({ data: { createTodo: { id } } }: { data: { createTodo: { id: number } }}) => {
-      this.setState({ selectedId: id });
+      handlePreviewSelect(id);
     });
-  }
-}
+  };
 
-export default withApollo(TodoListCatalog);
+  return (
+    <Query query={GET_ALL_TODO_LISTS}>
+      {({ loading, error, data }) => {
+        if (loading) { return null; }
+        if (error) { return `Error!: ${error}`; }
+
+        const { allTodos } = data;
+        const todoListPreviews = allTodos.map((list: TTodoList) => (
+          <TodoListPreview
+            key={list.id}
+            id={list.id}
+            handleClick={handlePreviewSelect}
+            title={list.title}
+          />
+        ));
+
+        return (
+          <div className='catalog'>
+            <TodoListForm createTodoList={createTodoList} />
+            { !selectedId ? 'Select your todo' :
+              <TodoList id={selectedId} updateTitle={updateTitle} updateItemTitle={updateItemTitle} />
+            }
+            <div className='previews'>
+              {todoListPreviews}
+            </div>
+          </div>
+        );
+      }}
+    </Query>
+  );
+};
+
+const mapStateToProps = (state: any) => ({
+  selectedId: state.selectedTodoId,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  selectTodo: (id: number) => dispatch(SelectTodo(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withApollo(TodoListCatalog));
